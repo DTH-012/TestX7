@@ -1,0 +1,36 @@
+﻿@using MsWebGame.CSKH.Models.Games;
+@using MsWebGame.CSKH.Utils
+@using Telerik.Web.Mvc.UI
+
+
+@{
+    ViewBag.Title = "Lịch sử giao dịch của admin";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            <img src="@Url.Content("~/Content/images/ico-promotions.png")" alt="" />
+           Game Funds
+        </div>
+    </div>
+    <table class="adminContent">
+        <tr>
+            <td>
+                @(Html.Telerik().Grid<GameFundModel>()
+                .Name("gamefund-grid")
+                .Columns(columns =>
+                {
+                    columns.Bound(x => x.GameName);
+                    columns.Bound(x => x.RoomID);
+                    columns.Bound(x => x.PrizeFundFormat).HtmlAttributes(new { @class = "text-right" }); ;
+                    columns.Bound(x => x.JackpotFundFormat).HtmlAttributes(new { @class = "text-right" });
+                })
+                .Pageable(settings => settings.PageSize(50).Position(GridPagerPosition.Both))
+                .DataBinding(dataBinding => dataBinding.Ajax().Select("GameFundList", "Game"))
+                .EnableCustomBinding(true))
+            </td>
+        </tr>
+    </table>
+}

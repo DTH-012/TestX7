@@ -1,0 +1,312 @@
+﻿<div>
+    <h2>Chỉnh cầu Xóc Đĩa</h2>
+    @*<p>The .table-bordered class adds borders to a table:</p>*@
+    <table class="table table-bordered">
+        <tr>
+            <td class="text-center" style="vertical-align: middle;width:10%">
+                <strong id="SessionID"></strong>
+            </td>
+            <td class="text-center" style="vertical-align: middle;width:10%">
+                <strong id="Phrase"></strong>
+            </td>
+
+            <td class="text-center" style="vertical-align: middle;width:10%">
+                <strong id="Elapsed"></strong>
+            </td>
+            <td class="text-center" style="vertical-align: middle;width:35%">
+                <strong id="Model"></strong>
+            </td>
+            <td class="text-center" style="vertical-align: middle;width:35%">
+                    <strong id="Jackpot"></strong>
+            </td>
+        </tr>
+    </table>
+    <table class="table table-bordered" id="myform">
+        <tr>
+            <td id="kq_0" class="text-center" style="vertical-align: middle;">
+                <img src="/Images/XocDia/nut_t.png" />
+                <img src="/Images/XocDia/nut_t.png" />
+                <img src="/Images/XocDia/nut_t.png" />
+                <img src="/Images/XocDia/nut_t.png" />
+
+            </td>
+            <td id="kq_1" class="text-center" style="vertical-align: middle;">
+                <img src="/Images/XocDia/nut_t.png" />
+                <img src="/Images/XocDia/nut_t.png" />
+                <img src="/Images/XocDia/nut_t.png" />
+                <img src="/Images/XocDia/nut_d.png" />
+
+            </td>
+            <td id="kq_2" class="text-center" style="vertical-align: middle;">
+                <img src="/Images/XocDia/nut_t.png" />
+                <img src="/Images/XocDia/nut_t.png" />
+                <img src="/Images/XocDia/nut_d.png" />
+                <img src="/Images/XocDia/nut_d.png" />
+
+            </td>
+            <td id="kq_3" class="text-center" style="vertical-align: middle;">
+                <img src="/Images/XocDia/nut_t.png" />
+                <img src="/Images/XocDia/nut_d.png" />
+                <img src="/Images/XocDia/nut_d.png" />
+                <img src="/Images/XocDia/nut_d.png" />
+
+            </td>
+            <td id="kq_4" class="text-center" style="vertical-align: middle;">
+                <img src="/Images/XocDia/nut_d.png" />
+                <img src="/Images/XocDia/nut_d.png" />
+                <img src="/Images/XocDia/nut_d.png" />
+                <img src="/Images/XocDia/nut_d.png" />
+
+            </td>
+            <td id="kq_random" class="text-center" style="vertical-align: middle;">
+                RANDOM
+            </td>
+        </tr>
+
+        <tr>
+            <td class="text-center">
+                <input type="radio" name="resulted" value="0" onclick="SetModel()">
+            </td>
+            <td class="text-center">
+                <input type="radio" name="resulted" value="1" onclick="SetModel()">
+            </td>
+            <td class="text-center">
+                <input type="radio" name="resulted" value="2" onclick="SetModel()">
+            </td>
+            <td class="text-center">
+
+                <input type="radio" name="resulted" value="3" onclick="SetModel()">
+            </td>
+            <td class="text-center">
+                <input type="radio" name="resulted" value="4" onclick="SetModel()">
+            </td>
+            <td class="text-center">
+                <input type="radio" name="resulted" value="-1" onclick="SetModel()" checked="true">
+            </td>
+        </tr>
+    </table>
+
+    <table class="table table-bordered" id="jpform">
+        <tr>
+            <td id="jp_2" class="text-center" style="vertical-align: middle;">
+                <strong>SET JACKPOT 4 ĐEN</strong>
+            </td>
+            <td id="jp_4" class="text-center" style="vertical-align: middle;">
+                <strong>SET JACKPOT 4 TRẮNG</strong>
+            </td>
+            <td id="jp_6" class="text-center" style="vertical-align: middle;">
+                <strong>SET JACKPOT CHẴN</strong>
+            </td>
+            <td id="jp_1" class="text-center" style="vertical-align: middle;">
+                <strong>SET JACKPOT LẺ</strong>
+            </td>
+            <td id="jp_5" class="text-center" style="vertical-align: middle;">
+                <strong>SET JACKPOT 3 ĐEN</strong>
+            </td>
+            <td id="jp_3" class="text-center" style="vertical-align: middle;">
+                <strong>SET JACKPOT 3 TRẮNG</strong>
+            </td>
+            <td id="jp_random" class="text-center" style="vertical-align: middle;">
+                <strong>NGẪU NHIÊN</strong>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="text-center">
+                <input type="radio" name="resulted_jackpot" value="2" onclick="SetJackpot()">
+            </td>
+            <td class="text-center">
+                <input type="radio" name="resulted_jackpot" value="4" onclick="SetJackpot()">
+            </td>
+            <td class="text-center">
+                <input type="radio" name="resulted_jackpot" value="6" onclick="SetJackpot()">
+            </td>
+            <td class="text-center">
+                <input type="radio" name="resulted_jackpot" value="1" onclick="SetJackpot()">
+            </td>
+            <td class="text-center">
+                <input type="radio" name="resulted_jackpot" value="5" onclick="SetJackpot()">
+            </td>
+            <td class="text-center">
+                <input type="radio" name="resulted_jackpot" value="3" onclick="SetJackpot()">
+            </td>
+            <td class="text-center">
+                <input type="radio" name="resulted_jackpot" value="-1" onclick="SetJackpot()" checked="true">
+            </td>
+        </tr>
+    </table>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="text-center" width="14.2857142857%">ĐEN-ĐEN-ĐEN-ĐEN = 4</th>
+                <th class="text-center" width="14.2857142857%">TRẮNG-TRẮNG-TRẮNG-TRẮNG = 0</th>
+                <th class="text-center" width="14.2857142857%">CHẴN</th>
+                <th class="text-center" width="14.2857142857%">LẺ</th>
+                <th class="text-center" width="14.2857142857%">ĐEN-ĐEN-ĐEN-TRẮNG = 3</th>
+                <th class="text-center" width="14.2857142857%">TRẮNG-TRẮNG-TRẮNG-đen = 1</th>
+            </tr>
+            <tr>
+                <td class="text-center" id="TotalFourUp">0</td>
+                <td class="text-center" id="TotalFourDown">0</td>
+                <td class="text-center" id="TotalEven">0</td>
+                <td class="text-center" id="TotalOdd">0</td>
+                <td class="text-center" id="TotalThreeUp">0</td>
+                <td class="text-center" id="TotalThreeDown">0</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-center">
+                    <table class="table table-bordered">
+                        <tbody id="HtmlFourUp"></tbody>
+                    </table>
+                </td>
+                <td class="text-center">
+                    <table class="table table-bordered">
+                        <tbody id="HtmlFourDown"></tbody>
+                    </table>
+                </td>
+                <td class="text-center">
+                    <table class="table table-bordered">
+                        <tbody id="HtmlEven"></tbody>
+                    </table>
+                </td>
+                <td class="text-center">
+                    <table class="table table-bordered">
+                        <tbody id="HtmlOdd"></tbody>
+                    </table>
+                </td>
+                <td class="text-center">
+                    <table class="table table-bordered">
+                        <tbody id="HtmlThreeUp"></tbody>
+                    </table>
+                </td>
+                <td class="text-center">
+                    <table class="table table-bordered">
+                        <tbody id="HtmlThreeDown"></tbody>
+                    </table>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
+<script>
+	function GetSession(){
+		$.ajax({
+			type:"POST",
+			url: "/XocDia/InitSession",
+			dataType:"json",
+			success: function(result){
+				//console.log(result);
+				$("#Elapsed").html(result.Elapsed);
+				$("#SessionID").html(result.SessionID);
+                $("#Phrase").html(result.Phrase);
+                if (result.Phrase == "ShowResult") {
+                    $("#myform input[name=resulted][value=-1]").prop('checked', true);
+                    $("#jpform input[name=resulted_jackpot][value=-1]").prop('checked', true);
+                }
+				$("#Model").html($("#kq_" + (result.Model == -1 ? "random" : result.Model)).html());
+                $("#Jackpot").html($("#jp_" + (result.Jackpot == -1 ? "random" : result.Jackpot)).html());
+				var totalEven = 0;
+				var totalFourDown = 0;
+				var totalFourUp = 0;
+				var totalOdd = 0;
+				var totalThreeDown = 0;
+				var totalThreeUp = 0;
+				
+				var HtmlEven = "";
+				var HtmlFourDown = "";
+				var HtmlFourUp = "";
+				var HtmlOdd = "";
+				var HtmlThreeDown = "";
+				var HtmlThreeUp = "";
+				
+				for(let i in result.Even){
+					totalEven+= result.Even[i].BetValue;
+					HtmlEven+= "<tr><td>"+result.Even[i].Nickname+"-"+result.Even[i].BetValue+"</td></tr>";
+				}
+				for(let i in result.FourDown){
+					totalFourDown+= result.FourDown[i].BetValue;
+					HtmlFourDown+= "<tr><td>"+result.FourDown[i].Nickname+"-"+result.FourDown[i].BetValue+"</td></tr>";
+				}
+				for(let i in result.FourUp){
+					totalFourUp+= result.FourUp[i].BetValue;
+					HtmlFourUp+= "<tr><td>"+result.FourUp[i].Nickname+"-"+result.FourUp[i].BetValue+"</td></tr>";
+				}
+				for(let i in result.Odd){
+					totalOdd+= result.Odd[i].BetValue;
+					HtmlOdd+= "<tr><td>"+result.Odd[i].Nickname+"-"+result.Odd[i].BetValue+"</td></tr>";
+				}
+				for(let i in result.ThreeDown){
+					totalThreeDown+= result.ThreeDown[i].BetValue;
+					HtmlThreeDown+= "<tr><td>"+result.ThreeDown[i].Nickname+"-"+result.ThreeDown[i].BetValue+"</td></tr>";
+				}
+				for(let i in result.ThreeUp){
+					totalThreeUp+= result.ThreeUp[i].BetValue;
+					HtmlThreeUp+= "<tr><td>"+result.ThreeUp[i].Nickname+"-"+result.ThreeUp[i].BetValue+"</td></tr>";
+				}
+				$("#TotalEven").html(totalEven);
+				$("#TotalFourDown").html(totalFourDown);
+				$("#TotalFourUp").html(totalFourUp);
+				$("#TotalOdd").html(totalOdd);
+				$("#TotalThreeDown").html(totalThreeDown);
+				$("#TotalThreeUp").html(totalThreeUp);
+				
+				$("#HtmlEven").html(HtmlEven);
+				$("#HtmlFourDown").html(HtmlFourDown);
+				$("#HtmlFourUp").html(HtmlFourUp);
+				$("#HtmlOdd").html(HtmlOdd);
+				$("#HtmlThreeDown").html(HtmlThreeDown);
+				$("#HtmlThreeUp").html(HtmlThreeUp);
+				
+			}
+		});
+	}
+	function SetModel(val){
+	$.ajax({
+			type:"POST",
+			url: "/XocDia/SetModel",
+			dataType:"json",
+			data:{model:val?val:$("#myform input[name='resulted']:checked").val()},
+			success: function(result){
+				//console.log(result);
+				try{
+					if(result.IsOke){
+						 
+					}else{
+						 $("#myform input[name=resulted][value=-1]").prop('checked', true);
+					}
+				}catch(e){
+					location.reload();
+				}
+			}
+		});
+	}
+    function SetJackpot(val) {
+        console.log(val);
+        $.ajax({
+            type: "POST",
+            url: "/XocDia/SetJackpot",
+            dataType: "json",
+            data: { jackpot: val ? val : $("#jpform input[name='resulted_jackpot']:checked").val() },
+            success: function (result) {
+                //console.log(result);
+                try {
+                    if (result.IsOke) {
+
+                    } else {
+                        $("#jpform input[name=resulted_jackpot][value=-1]").prop('checked', true);
+                    }
+                } catch (e) {
+                    location.reload();
+                }
+            }
+        });
+    }
+	$(document).ready(function(){
+		GetSession(true);
+		setInterval(GetSession,999);
+	})
+</script>

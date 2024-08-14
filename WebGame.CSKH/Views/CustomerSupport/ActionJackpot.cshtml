@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = "Lịch sử trúng hũ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using MsWebGame.CSKH.Database.DTO
+@using Telerik.Web.Mvc.UI
+@using MsWebGame.CSKH.Utils
+
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            Lịch sử trúng hũ
+        </div>
+    </div>
+   
+	<h2>
+        Danh sách 
+    </h2>
+	<button class='btn' type="button" onclick="openCreateConfig(-2,'','','3')">Tạo</button>
+    <table class="adminContent">
+        <tr>
+            <td>
+                @(Html.Telerik().Grid<HistoryClickJackpot>()
+                    .Name("historyJackpot-grid")
+                    .ClientEvents(events => events.OnDataBinding("onDataBinding"))
+                    .Columns(columns =>
+                    {
+                        columns.Bound(x => x.GameName).Title("GameName").HtmlAttributes(new { @class = "text-center" });
+                        columns.Bound(x => x.RoomName).Title("RoomID").HtmlAttributes(new { @class = "text-center" });
+                        columns.Bound(x => x.Nickname).Title("Nickname").HtmlAttributes(new { @class = "text-center" });
+                        columns.Bound(x => x.Count).Title("Count").HtmlAttributes(new { @class = "text-center" });
+                       
+                        columns.Bound(x => x.CreateTime).Title("Thời gian trúng").Format("{0:dd/MM/yyyy HH:mm:ss}").HtmlAttributes(new { @class = "text-center" });
+						columns.Template(c => { }).ClientTemplate("<button type=\"button\" class=\"btn-primary\"  data-toggle=\"modal\" data-target=\"#lstPopupBank\" onclick=\"openCreateConfig('<#= Id #>','<#= Nickname #>','<#= Count #>',1)\">Cấu hình</a>").HtmlAttributes(new { @class = "customGridRowStyle", title = "Edit Company Profile" }).Width(100);
+						columns.Template(c => { }).ClientTemplate("<button type=\"button\" class=\"btn-primary\"  data-toggle=\"modal\" data-target=\"#lstPopupBank\" onclick=\"deleteConfig('<#= Id #>','<#= Nickname #>','<#= Count #>',2)\">Xóa</a>").HtmlAttributes(new { @class = "customGridRowStyle", title = "Edit Company Profile" }).Width(100);
+                    })
+                    .Pageable(settings => settings.PageSize(AppConstants.CONFIG.GRID_SIZE).Position(GridPagerPosition.Both))
+                    .DataBinding(dataBinding =>
+                    {
+                        dataBinding.Ajax().Select("GetClickJackpot", "CustomerSupport");
+                    })
+                    .EnableCustomBinding(true))
+            </td>
+        </tr>
+    </table>
+	<div class="modal fade" id="lstUpdatePhoneModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật số điện thoại</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                         
+                        <button type="button" class="btn-primary" onclick="actionSave()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnSearch').click(function () {
+                var nickName = $('#nickname').val().trim();
+                var from = $('#from').val().trim();
+                var to = $('#to').val().trim();
+                if (nickName == null || nickName == '') {
+                    $('#nickname').focus();
+                    return;
+                }
+                if (from == null || from == '') {
+                    $('#from').focus();
+                    return;
+                }
+                if (to == null || to == '') {
+                    $('#to').focus();
+                    return;
+                }
+
+                var grid = $('#historyJackpot-grid').data('tGrid');
+                grid.currentPage = 1; //new search. Set page size to 1
+                grid.ajaxRequest();
+                return false;
+            });
+        });
+
+        function onDataBinding(e) {
+            var searchModel = {
+                 
+            };
+            e.data = searchModel;
+        }
+		function actionSave(){
+			var nickname = $("#lstUpdatePhoneModal .nickname").val();
+			var count = $("#lstUpdatePhoneModal .count").val();
+			var id = $("#lstUpdatePhoneModal .id").val();
+			var gameid = $("#lstUpdatePhoneModal .gameid").val();
+			var roomid = $("#lstUpdatePhoneModal .roomid").val();
+			Save(nickname,count,id,gameid,roomid,function(){});
+		}
+		function deleteConfig(Id,GameID,RoomID,Type){
+			Save(GameID,-1,Id,0,0,function(){});
+		}
+		function Save(nickname,count,id,gameid,roomid,cb){
+			
+			 $.ajax({
+				type: "POST",
+				url: GlobalHeader.Config.Root_Url + "CustomerSupport/PopupConfigJackpotSave",
+				xhrFields: { withCredentials: true },
+				crossDomain: true,
+				data:{
+					Nickname:nickname,
+					Count:count,
+					Id:id,
+					GameId : gameid,
+					RoomId : roomid
+				},
+				success: function (html) {
+					console.log(html);
+					cb();
+				},
+				fail: function (fail) {
+					console.log("Loi");
+				}
+			});
+		}
+		function openCreateConfig(Id,GameID,RoomID,Type){
+			console.log(Id+" "+GameID+" "+RoomID+" "+Type)
+			 $.ajax({
+				type: "POST",
+				url: GlobalHeader.Config.Root_Url + "CustomerSupport/PopupConfigJackpot?Id=" + Id ,
+				xhrFields: { withCredentials: true },
+				crossDomain: true,
+				data:{
+					Nickname:GameID,
+					Count:RoomID,
+					Id:Id
+				},
+				success: function (html) {
+					$('#lstUpdatePhoneModal').modal('show');
+					$('#lstUpdatePhoneModal .modal-body').html(html);
+				},
+				fail: function (fail) {
+					console.log("Loi");
+				}
+			});
+		}
+    </script>
+}

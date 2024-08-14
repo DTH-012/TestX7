@@ -1,0 +1,400 @@
+﻿@using MsWebGame.CSKH.Utils
+@using Telerik.Web.Mvc.UI
+@using MsWebGame.CSKH.Models.TiLeGameSlot
+
+@{
+    ViewBag.Title = "Tỉ Lệ Game Slot";
+}
+<style>
+    .p {
+        font-size: 24px;
+    }
+
+    .right {
+        float: right;
+    }
+</style>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                COWBOY:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_Cowboy" value="" /> <button onclick="SetCowboy()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileCowboy"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Trúng Càng CAO
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                THUỶ CUNG:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_ThuyCung" value="" /> <button onclick="SetThuyCung()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileThuyCung"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Trúng Càng CAO
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                AI CẬP:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_AiCap" value="" /> <button onclick="SetAiCap()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileAiCap"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Trúng Càng CAO
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                FROZEN:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_Frozen" value="" /> <button onclick="SetFrozen()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileFrozen"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Trúng Càng CAO
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                GÁI NHẢY:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_GaiNhay" value="" /> <button onclick="SetGaiNhay()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileGaiNhay"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Trúng Càng CAO
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                PANDA:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_Panda" value="" /> <button onclick="SetPanda()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTilePanda"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Trúng Càng CAO
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                SONGUKU:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_Songoku" value="" /> <button onclick="SetSongoku()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileSongoku"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Trúng Càng CAO
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                SUPERHERDES:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_SuperHerdes" value="" /> <button onclick="SetSuperHerdes()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileSuperHerdes"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Trúng Càng CAO
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                THẦN RỪNG:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_ThanRung" value="" /> <button onclick="SetThanRung()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileThanRung"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Trúng Càng CAO
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                THẦN SÉT:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_ThanSet" value="" /> <button onclick="SetThanSet()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileThanSet"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Trúng Càng CAO
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                ZOMBIE:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_Zombie" value="" /> <button onclick="SetZombie()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileZombie"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Trúng Càng CAO
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                TAM QUỐC:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_TamQuoc" value="" /> <button onclick="SetTamQuoc()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileTamQuoc"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Trúng Càng CAO
+            </th>
+        </tr>
+    </thead>
+</table>
+<script>
+    function SetCowboy() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/TiLeGameSlot/SetCowboy",
+                dataType: "json",
+                data: { "Tile": $("#tile_Cowboy").val() },
+                success: function (result) {
+
+                }
+            });
+    }
+    function SetThuyCung() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/TiLeGameSlot/SetThuyCung",
+                dataType: "json",
+                data: { "Tile": $("#tile_ThuyCung").val() },
+                success: function (result) {
+
+                }
+            });
+    }
+    function SetAiCap() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/TiLeGameSlot/SetAiCap",
+                dataType: "json",
+                data: { "Tile": $("#tile_AiCap").val() },
+                success: function (result) {
+
+                }
+            });
+    }
+    function SetFrozen() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/TiLeGameSlot/SetFrozen",
+                dataType: "json",
+                data: { "Tile": $("#tile_Frozen").val() },
+                success: function (result) {
+
+                }
+            });
+    }
+    function SetGaiNhay() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/TiLeGameSlot/SetGaiNhay",
+                dataType: "json",
+                data: { "Tile": $("#tile_GaiNhay").val() },
+                success: function (result) {
+
+                }
+            });
+    }
+    function SetPanda() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/TiLeGameSlot/SetPanda",
+                dataType: "json",
+                data: { "Tile": $("#tile_Panda").val() },
+                success: function (result) {
+
+                }
+            });
+    }
+    function SetSongoku() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/TiLeGameSlot/SetSongoku",
+                dataType: "json",
+                data: { "Tile": $("#tile_Songoku").val() },
+                success: function (result) {
+
+                }
+            });
+    }
+    function SetSuperHerdes() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/TiLeGameSlot/SetSuperHerdes",
+                dataType: "json",
+                data: { "Tile": $("#tile_SuperHerdes").val() },
+                success: function (result) {
+
+                }
+            });
+    }
+    function SetThanRung() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/TiLeGameSlot/SetThanRung",
+                dataType: "json",
+                data: { "Tile": $("#tile_ThanRung").val() },
+                success: function (result) {
+
+                }
+            });
+    }
+    function SetThanSet() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/TiLeGameSlot/SetThanSet",
+                dataType: "json",
+                data: { "Tile": $("#tile_ThanSet").val() },
+                success: function (result) {
+
+                }
+            });
+    }
+    function SetZombie() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/TiLeGameSlot/SetZombie",
+                dataType: "json",
+                data: { "Tile": $("#tile_Zombie").val() },
+                success: function (result) {
+
+                }
+            });
+    }
+    function SetTamQuoc() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/TiLeGameSlot/SetTamQuoc",
+                dataType: "json",
+                data: { "Tile": $("#tile_TamQuoc").val() },
+                success: function (result) {
+
+                }
+            });
+    }
+    function GetSession(init) {
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGameSlot/GetCowboy",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileCowboy").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGameSlot/GetThuyCung",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileThuyCung").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGameSlot/GetAiCap",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileAiCap").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGameSlot/GetFrozen",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileFrozen").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGameSlot/GetGaiNhay",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileGaiNhay").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGameSlot/GetPanda",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTilePanda").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGameSlot/GetSongoku",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileSongoku").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGameSlot/GetSuperHerdes",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileSuperHerdes").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGameSlot/GetThanRung",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileThanRung").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGameSlot/GetThanSet",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileThanSet").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGameSlot/GetZombie",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileZombie").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGameSlot/GetTamQuoc",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileTamQuoc").html(result.rateBet);
+            }
+        });
+    }
+    $(document).ready(function () {
+        GetSession(true);
+        setInterval(GetSession, 999);
+    })
+</script>

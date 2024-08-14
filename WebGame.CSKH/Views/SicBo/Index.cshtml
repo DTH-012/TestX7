@@ -1,0 +1,211 @@
+﻿@{
+    var nameSides = new List<string[]>();
+    nameSides.Add(new string[] { "Tai", "Xiu", "Chan", "Le" });
+    nameSides.Add(new string[] { "Doi1", "Doi2", "Doi3", "Doi4", "Doi5", "Doi6" });
+    nameSides.Add(new string[] { "BaoRandom", "Bao1", "Bao2", "Bao3", "Bao4", "Bao5", "Bao6" });
+    nameSides.Add(new string[] { "Tong4", "Tong5", "Tong6", "Tong7", "Tong8", "Tong9", "Tong10", "Tong11", "Tong12", "Tong13", "Tong14", "Tong15", "Tong16", "Tong17" });
+    nameSides.Add(new string[] { "Cap12", "Cap13", "Cap14", "Cap15", "Cap16", "Cap23", "Cap24", "Cap25", "Cap26", "Cap34", "Cap35", "Cap36", "Cap45", "Cap46", "Cap56" });
+    nameSides.Add(new string[] { "Don1", "Don2", "Don3", "Don4", "Don5", "Don6" });
+}
+<div>
+
+    <table class="table table-bordered">
+        <tr>
+            <td class="text-center" style="vertical-align: middle;width:25%">
+                <strong id="SessionID"></strong>
+            </td>
+            <td class="text-center" style="vertical-align: middle;width:25%">
+                <strong id="Phrase"></strong>
+            </td>
+
+            <td class="text-center" style="vertical-align: middle;width:25%">
+                <strong id="Elapsed"></strong>
+            </td>
+            <td class="text-center" style="vertical-align: middle;width:25%">
+                <strong id="Model"></strong>
+            </td>
+        </tr>
+    </table>
+    <table class="table table-bordered" id="myform">
+        <tr>
+            <td id="kq_1" class="text-center" style="vertical-align: middle;">
+                TỰ CHỈNH
+            </td>
+            <td id="kq_2" class="text-center" style="vertical-align: middle;">
+                TỐI ƯU
+            </td>         
+            <td id="kq_random" class="text-center" style="vertical-align: middle;">
+                NGẪU NHIÊN
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                <input type="radio" name="resulted" value="1" onclick="SetModel()">
+            </td>
+            <td class="text-center">
+
+                <input type="radio" name="resulted" value="2" onclick="SetModel()">
+            </td>
+            <td class="text-center">
+
+                <input type="radio" name="resulted" value="-1" onclick="SetModel()" checked="true">
+            </td>
+        </tr>
+    </table>
+
+    <div class="table-responsive">
+        @foreach (var nanmeSide in nameSides)
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        @foreach (var item in nanmeSide)
+                        {
+                            <th class="text-center">@item</th>
+                        }
+                    </tr>
+                    <tr>
+                        @foreach (var item in nanmeSide)
+                        {
+                            <td class="text-center" id="@("Total" + item)">0</td>
+
+                        }
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @foreach (var item in nanmeSide)
+                        {
+                            <td class="text-center">
+                                <table class="table table-bordered">
+                                    <tbody id="@("Html" + item)"></tbody>
+                                </table>
+                            </td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+<script>
+    function GetSession() {
+        $.ajax({
+            type: "POST",
+            url: "/SicBo/InitSession",
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                $("#Elapsed").html(result.Elapsed);
+                $("#SessionID").html(result.SessionID);
+                $("#Phrase").html(result.Phrase);
+                $("#Model").html($("#kq_" + (result.Model == -1 ? "random" : result.Model)).html());
+
+                if (result.Model == -1) {
+                    $("#myform input[name=resulted][value=-1]").prop('checked', true);
+                }
+
+                var arrSides = getArraySide();
+
+                for (let i = 0; i < arrSides.length; i++) {
+                    var nameSide = arrSides[i];
+                    var total = 0;
+                    var html = '';
+
+                    var userBets = result[nameSide];
+                    for (let j in userBets) {
+                        total += userBets[j].BetValue;
+                        html += "<tr><td>" + userBets[j].Nickname + "-" + userBets[j].BetValue.toLocaleString() + "</td></tr>";
+                    }
+
+                    $("#Total" + nameSide).html(total.toLocaleString());
+                    $("#Html" + nameSide).html(html);
+                }
+            }
+        });
+    }
+    function SetModel(val) {
+        $.ajax({
+            type: "POST",
+            url: "/SicBo/SetModel",
+            dataType: "json",
+            data: { model: val ? val : $("#myform input[name='resulted']:checked").val() },
+            success: function (result) {
+                console.log(result);
+                try {
+                    if (result.IsOke) {
+
+                    } else {
+                        $("#myform input[name=resulted][value=-1]").prop('checked', true);
+                    }
+                } catch (e) {
+                    location.reload();
+                }
+            }
+        });
+    }
+    $(document).ready(function () {
+        GetSession(true);
+        setInterval(GetSession, 999);
+    })
+
+    function getArraySide() {
+        var arr = [
+            "Tai",
+            "Xiu",
+            "Chan",
+            "Le",
+            "Doi1",
+            "Doi2",
+            "Doi3",
+            "Doi4",
+            "Doi5",
+            "Doi6",
+            "BaoRandom",
+            "Bao1",
+            "Bao2",
+            "Bao3",
+            "Bao4",
+            "Bao5",
+            "Bao6",
+            "Tong4",
+            "Tong5",
+            "Tong6",
+            "Tong7",
+            "Tong8",
+            "Tong9",
+            "Tong10",
+            "Tong11",
+            "Tong12",
+            "Tong13",
+            "Tong14",
+            "Tong15",
+            "Tong16",
+            "Tong17",
+            "Cap12",
+            "Cap13",
+            "Cap14",
+            "Cap15",
+            "Cap16",
+            "Cap23",
+            "Cap24",
+            "Cap25",
+            "Cap26",
+            "Cap34",
+            "Cap35",
+            "Cap36",
+            "Cap45",
+            "Cap46",
+            "Cap56",
+            "Don1",
+            "Don2",
+            "Don3",
+            "Don4",
+            "Don5",
+            "Don6"
+        ]
+
+        return arr;
+    }
+</script>

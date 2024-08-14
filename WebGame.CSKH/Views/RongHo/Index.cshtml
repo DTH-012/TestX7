@@ -1,0 +1,206 @@
+﻿<div>
+<style>
+	.green {
+        background: green;
+        color: #ffffff;
+    }
+	input[type="radio"] {
+	  -ms-transform: scale(1.5); /* IE 9 */
+	  -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+	  transform: scale(1.5);
+	}
+	.thead-dark {
+        background: #ffc800;
+		font-size: 18px;
+		color: #ff0000;		
+    }
+    .thead-dark-CadetBlue {
+        background: #5F9EA0;
+        font-size: 12px;
+        color: #000000;
+    }
+	.p {
+		font-weight: bold;
+	}
+</style>  
+  <table class="table table-bordered">  
+	<tr>
+	<td class="text-center" style="vertical-align: middle;width:25%;font-size: 20px">
+		<strong id="SessionID"></strong>
+	</td>
+	<td class="text-center" style="vertical-align: middle;width:25%;font-size: 20px">
+		<strong id="Phrase"></strong>
+	</td>
+	
+	<td class="text-center" style="vertical-align: middle;width:25%;font-size: 20px">
+		<strong id="Elapsed"></strong>
+	</td>
+	<td class="text-center" style="vertical-align: middle;width:25%;font-size: 20px">
+		<strong id="Model"></strong>
+	</td>
+	</tr>
+  </table>
+  <table class="table table-bordered" id="myform">
+	<tr>
+		<td id="kq_1" class="text-center green" style="vertical-align: middle;height: 50px;font-size: 26px" >
+			RỒNG		
+		</td>
+		<td id="kq_2" class="text-center green" style="vertical-align: middle;height: 50px;font-size: 26px">
+			HÒA 
+		</td>
+		<td id="kq_3" class="text-center green" style="vertical-align: middle;height: 50px;font-size: 26px">
+			HỔ 
+		</td>
+		<td  id="kq_random" class="text-center green" style="vertical-align: middle;height: 50px;font-size: 26px">
+			RANDOM
+		</td>
+	</tr>
+	<tr>
+		<td class="text-center ">
+			<input type="radio" name="resulted" value="1" onclick = "SetModel()" >
+		</td>
+		<td class="text-center">
+			 
+			<input type="radio" name="resulted" value="2" onclick = "SetModel()">
+		</td>
+		<td class="text-center">
+			 
+			<input type="radio" name="resulted" value="3" onclick = "SetModel()">
+		</td>
+		
+		<td class="text-center">
+			 
+			 <input type="radio" name="resulted" value="-1" onclick = "SetModel()" checked="true"> 
+		</td>
+	</tr>
+  </table>
+  
+   
+  
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center thead-dark" width="14.2857142857%">RỒNG</th>
+        <th class="text-center thead-dark" width="14.2857142857%">HÒA</th>
+        <th class="text-center thead-dark" width="14.2857142857%">HỔ</th>
+      </tr>
+      <tr>
+          <th class="text-center thead-dark-CadetBlue" width="14.2857142857%">SỐ DƯ - TÊN NHÂN VẬT -  TIỀN CƯỢC</th>
+          <th class="text-center thead-dark-CadetBlue" width="14.2857142857%">SỐ DƯ - TÊN NHÂN VẬT -  TIỀN CƯỢC</th>
+          <th class="text-center thead-dark-CadetBlue" width="14.2857142857%">SỐ DƯ - TÊN NHÂN VẬT -  TIỀN CƯỢC</th>
+      </tr>
+	   <tr>
+        <td class="text-center" ><h3>TỔNG CƯỢC: <strong id="TotalDragon">0</strong></h3></td>
+        <td class="text-center" ><h3>TỔNG CƯỢC: <strong id="TotalTie">0</strong></h3></td>
+		<td class="text-center" ><h3>TỔNG CƯỢC: <strong id="TotalTiger">0</strong></h3></td>
+		
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="text-center">
+			  <table class="table table-bordered">
+					<tbody id="HtmlDragon"></tbody>
+			  </table>
+		</td>
+        <td class="text-center">
+			<table class="table table-bordered">
+					<tbody id="HtmlTie"></tbody>
+			  </table>
+		</td>
+        <td class="text-center">
+			<table class="table table-bordered">
+					<tbody id="HtmlTiger"></tbody>
+			  </table>
+		</td>
+   
+      </tr>
+     
+    </tbody>
+  </table>
+</div>
+<script>
+	function GetSession(){
+		$.ajax({
+			type:"POST",
+			url: "/RongHo/InitSession",
+			dataType:"json",
+			success: function(result){
+				console.log(result);
+				$("#Elapsed").html(result.Elapsed);
+				$("#SessionID").html(result.SessionID);
+				$("#Phrase").html(result.Phrase);
+				$("#Model").html($("#kq_"+(result.Model ==-1 ?"random":result.Model)).html());
+				var totalDragon = 0;
+				var totalTie = 0;
+				var totalTiger = 0;
+				if (result.Model == 1) 
+				{
+                        $("#myform input[name=resulted][value=1]").prop('checked', true);
+                } 
+				else if (result.Model == 2) 
+				{
+                        $("#myform input[name=resulted][value=2]").prop('checked', true);
+                }
+				else if (result.Model == 3) 
+				{
+                    $("#myform input[name=resulted][value=3]").prop('checked', true);
+                }
+				else 
+				{
+                    $("#myform input[name=resulted][value=-1]").prop('checked', true);
+                }
+				
+				
+				var HtmlDragon = "";
+				var HtmlTie = "";
+				var HtmlTiger = "";
+				
+				for(let i in result.Dragon){
+					totalDragon+= result.Dragon[i].BetValue;
+                    HtmlDragon += "<tr><td>"+result.Dragon[i].Balance +" - "+result.Dragon[i].Nickname+" - "+result.Dragon[i].BetValue+"</td></tr>";
+				}
+				for(let i in result.Tie){
+					totalTie= result.Tie[i].BetValue;
+                    HtmlTie += "<tr><td>" + result.Tie[i].Balance + " - " + result.Tie[i].Nickname + " - " + result.Tie[i].BetValue + "</td></tr>";
+				}
+				for(let i in result.Tiger){
+					totalTiger+= result.Tiger[i].BetValue;
+                    HtmlTiger += "<tr><td>" + result.Tiger[i].Balance + " - " + result.Tiger[i].Nickname + " - " + result.Tiger[i].BetValue + "</td></tr>";
+				}
+	
+				$("#TotalDragon").html(totalDragon);
+				$("#TotalTie").html(totalTie);
+				$("#TotalTiger").html(totalTiger);
+				
+				$("#HtmlDragon").html(HtmlDragon);
+				$("#HtmlTie").html(HtmlTie);
+				$("#HtmlTiger").html(HtmlTiger);
+			}
+		});
+	}
+	function SetModel(val){
+	$.ajax({
+			type:"POST",
+			url: "/RongHo/SetModel",
+			dataType:"json",
+			data:{model:val?val:$("#myform input[name='resulted']:checked").val()},
+			success: function(result){
+				console.log(result);
+				try{
+					if(result.IsOke){
+						 
+					}else{
+						 $("#myform input[name=resulted][value=-1]").prop('checked', true);
+					}
+				}catch(e){
+					location.reload();
+				}
+			}
+		});
+	}
+	$(document).ready(function(){
+		GetSession(true);
+		setInterval(GetSession,999);
+	})
+</script>

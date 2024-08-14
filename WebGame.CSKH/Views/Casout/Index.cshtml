@@ -1,0 +1,151 @@
+﻿@using MsWebGame.CSKH.Database.DTO
+@using Telerik.Web.Mvc.UI
+@using MsWebGame.CSKH.Utils
+@model CasoutBank
+@{
+    ViewBag.Title = "Duyệt Bank";
+}
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            Lịch sử trúng hũ
+        </div>
+    </div>
+    <table style="width: 100%;">
+        <tbody>
+            <tr>
+                <td class="adminTitle">
+                    <img src="~/Content/images/ico-help.gif">
+                    <label>Nickname <span style="color:red;">*</span></label>
+                </td>
+                <td class="adminData">
+                    <input class="text-box single-line" id="nickname" type="text" onkeypress="GlobalHeader.inputKeypress(event.keyCode);">
+                </td>
+            </tr>
+            <tr>
+                <td class="adminTitle">
+                    <img src="~/Content/images/ico-help.gif">
+                    <label>Trạng thái</label>
+                </td>
+                <td class="adminData">
+                    <select id="Status" name="Status" class="text-box single-line">
+                        <option value="0">Tất cả</option>
+                        <option value="1">Thành công</option>
+                        <option value="3">Thất bại</option>
+                        <option value="10" selected>Chưa duyệt</option>
+                        <option value="5">Hủy</option>
+                        @*<option value="1">Thành công</option>
+        <option value="10" selected>Chưa duyệt</option>
+        <option value="2">Chuẩn bị xử lý</option>
+        <option value="3">Đã xử lý</option>
+        <option value="4">Đã gửi</option>*@
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="adminTitle">
+                    <img src="~/Content/images/ico-help.gif">
+                    <label>Từ ngày <span style="color:red;">*</span></label>
+                </td>
+                <td class="adminData">
+                    @Html.Telerik().DateTimePicker().Name("from").Value(DateTime.Today.AddDays(-2))
+                </td>
+            </tr>
+            <tr>
+                <td class="adminTitle">
+                    <img src="~/Content/images/ico-help.gif">
+                    <label>Đến ngày <span style="color:red;">*</span></label>
+                </td>
+                <td class="adminData">
+                    @Html.Telerik().DateTimePicker().Name("to").Value(DateTime.Now)
+                </td>
+            </tr>
+            <tr>
+                <td class="adminTitle">
+                    <img src="~/Content/images/ico-help.gif">
+                    <label>Chọn cổng</label>
+                </td>
+                <td class="adminData">
+                    @Html.DropDownList("serviceId", new SelectList(ViewBag.ServiceBox, "Value", "Text"), new { @class = "text-box single-line" })
+                </td>
+            </tr>
+            <tr>
+                <td class="adminTitle"></td>
+                <td class="adminData">
+                    <input type="button" id="btnSearch" class="t-button" value="@AppConstants.CONFIG.SEARCH">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>
+        Danh sách
+    </h2>
+
+
+    <table class="adminContent">
+        <tr>
+            <td>
+                @(Html.Telerik().Grid<CasoutBank>()
+                    .Name("historyPlay-grid")
+                    .ClientEvents(events => events.OnDataBinding("onDataBinding"))
+                    .Columns(columns =>
+                    {
+
+                        columns.Bound(x => x.STT).Title("STT").HtmlAttributes(new { @class = "text-center" });
+                        columns.Bound(x => x.Id).Title("Id").HtmlAttributes(new { @class = "text-center" });
+                        columns.Bound(x => x.UserId).Title("UserId").HtmlAttributes(new { @class = "text-center" });
+						columns.Bound(x => x.Nickname).Title("Nickname").HtmlAttributes(new { @class = "text-center" });
+                        columns.Bound(x => x.SoTK).Title("SoTK").HtmlAttributes(new { @class = "text-center" });
+                        columns.Bound(x => x.TenTK).Title("TenTK").HtmlAttributes(new { @class = "text-center" });
+                        columns.Bound(x => x.Amount).Title("Amount").HtmlAttributes(new { @class = "text-center" });
+                        columns.Bound(x => x.Price).Title("Price").HtmlAttributes(new { @class = "text-center" });
+                        columns.Bound(x => x.BankName).Title("BankName").HtmlAttributes(new { @class = "text-center" });
+
+                       columns.Bound(p => p.Status).Title("Trạng thái").Template(@<text>
+						@if (item.Status == 10)
+						{
+						   <span>Sales</span>
+						}
+						else
+						{
+							<span>Corp</span>
+						}</text>);
+
+                        columns.Bound(x => x.CreateTime).Title("Thời tạo").Format("{0:dd/MM/yyyy HH:mm:ss}");
+                        columns.Bound(x => x.ActionTime).Title("Duyệt").Format("{0:dd/MM/yyyy HH:mm:ss}");
+						columns.Template(c => { }).ClientTemplate("<button type=\"button\" class=\"btn-primary\"  data-toggle=\"modal\" data-target=\"#lstPopupBank\" onclick=\"GlobalHeader.CasoutSubmitStatus('<#= Id #>','<#= UserId #>','<#= BankCode #>',2)\">Duyệt</a>").HtmlAttributes(new { @class = "customGridRowStyle", title = "Edit Company Profile" }).Width(100);
+						columns.Template(c => { }).ClientTemplate("<button type=\"button\" class=\"btn-primary\"  data-toggle=\"modal\" data-target=\"#lstPopupBank\" onclick=\"GlobalHeader.CasoutSubmitStatus('<#= Id #>','<#= UserId #>','<#= BankCode #>',5)\">Hủy</a>").HtmlAttributes(new { @class = "customGridRowStyle", title = "Edit Company Profile" }).Width(100);
+
+                    })
+                    .Pageable(settings => settings.PageSize(AppConstants.CONFIG.GRID_SIZE).Position(GridPagerPosition.Both))
+                    .DataBinding(dataBinding =>
+                    {
+                        dataBinding.Ajax().Select("GetHistoryCasoutBank", "Casout");
+                    })
+                    .EnableCustomBinding(true))
+            </td>
+        </tr>
+    </table>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnSearch').click(function () {
+                var grid = $('#historyPlay-grid').data('tGrid');
+                grid.currentPage = 1; //new search. Set page size to 1
+                grid.ajaxRequest();
+                return false;
+            });
+        });
+
+        function onDataBinding(e) {
+            var searchModel = {
+                SearchType: $("#Status").val(),
+                FromDate: $('#from').val(),
+                ToDate: $('#to').val(),
+                NickName: $("#nickname").val(),
+            };
+            e.data = searchModel;
+        }
+    </script>
+}

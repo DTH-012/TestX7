@@ -1,0 +1,359 @@
+﻿<div>
+   
+  <table class="table table-bordered">  
+	<tr>
+	<td class="text-center" style="vertical-align: middle;width:25%">
+		<strong id="SessionID"></strong>
+	</td>
+	<td class="text-center" style="vertical-align: middle;width:25%">
+		<strong id="Phrase"></strong>
+	</td>
+	
+	<td class="text-center" style="vertical-align: middle;width:25%">
+		<strong id="Elapsed"></strong>
+	</td>
+	<td class="text-center" style="vertical-align: middle;width:25%">
+		 <table class="table table-bordered">
+			<tr>
+				<td colspan="3">Kết quả chọn</td>
+			</tr>
+			<tr>
+				<td><img width="50px" id="KQdice1" src="/Images/BauCua/sb_random.png"/></td>
+				<td><img width="50px" id="KQdice2" src="/Images/BauCua/sb_random.png"/></td>
+				<td><img width="50px" id="KQdice3" src="/Images/BauCua/sb_random.png"/></td>
+			</tr>
+		 </table>
+	</td>
+	</tr>
+  </table>
+  <table class="table table-bordered" id="myform">
+	<tr>
+		<td id="kq_1" class="text-center" style="vertical-align: middle;">
+			<img src="/Images/BauCua/sb_gourd.png"/>
+		</td>
+		<td id="kq_2" class="text-center" style="vertical-align: middle;">
+			 <img src="/Images/BauCua/sb_crab.png"/>
+		 
+		</td>
+		<td id="kq_3" class="text-center" style="vertical-align: middle;">
+			 <img src="/Images/BauCua/sb_fish.png"/>
+			 
+		</td>
+		<td id="kq_4" class="text-center" style="vertical-align: middle;">
+			 <img src="/Images/BauCua/sb_rooster.png"/>
+			 
+		</td>
+		<td id="kq_5" class="text-center" style="vertical-align: middle;">
+			<img src="/Images/BauCua/sb_lobster.png"/>
+		</td>
+		<td id="kq_6" class="text-center" style="vertical-align: middle;">
+			<img src="/Images/BauCua/sb_deer.png"/>
+		</td>
+		<td  id="kq_random"class="text-center" style="vertical-align: middle;">
+			RANDOM
+		</td>
+	</tr>
+	<tr>
+
+		<td class="text-center">
+			<table class="table table-bordered">
+				<tr >
+					<td colspan="3">
+						<strong id="TotalGourd"> 0 </strong>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> Dice1 </strong><img width="20px" class="Selectdice1" src="/Images/BauCua/sb_random.png"/></td>
+					<td><strong> Dice2 </strong><img width="20px" class="Selectdice2" src="/Images/BauCua/sb_random.png"/></td>
+					<td><strong> Dice3 </strong><img width="20px" class="Selectdice3" src="/Images/BauCua/sb_random.png"/></td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="dice1" value="1" onclick = "SetModel()" /></td>
+					<td><input type="radio" name="dice2" value="1" onclick = "SetModel()"/></td>
+					<td><input type="radio" name="dice3" value="1" onclick = "SetModel()"/></td>
+				</tr>
+			 </table>
+		</td>
+		<td class="text-center">
+			<table class="table table-bordered">
+				<tr >
+					<td colspan="3">
+						<strong id="TotalCrab"> 0 </strong>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> Dice1 </strong><img width="20px" class="Selectdice1" src="/Images/BauCua/sb_random.png"/></td>
+					<td><strong> Dice2 </strong><img width="20px" class="Selectdice2" src="/Images/BauCua/sb_random.png"/></td>
+					<td><strong> Dice3 </strong><img width="20px" class="Selectdice3" src="/Images/BauCua/sb_random.png"/></td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="dice1" value="2" onclick = "SetModel()"/></td>
+					<td><input type="radio" name="dice2" value="2" onclick = "SetModel()"/></td>
+					<td><input type="radio" name="dice3" value="2" onclick = "SetModel()"/></td>
+				</tr>
+			 </table>
+		</td>
+		<td class="text-center">
+			<table class="table table-bordered">
+				<tr >
+					<td colspan="3">
+						<strong id="TotalFish"> 0 </strong>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> Dice1 </strong><img width="20px" class="Selectdice1" src="/Images/BauCua/sb_random.png"/></td>
+					<td><strong> Dice2 </strong><img width="20px" class="Selectdice2" src="/Images/BauCua/sb_random.png"/></td>
+					<td><strong> Dice3 </strong><img width="20px" class="Selectdice3" src="/Images/BauCua/sb_random.png"/></td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="dice1" value="3" onclick = "SetModel()"/></td>
+					<td><input type="radio" name="dice2" value="3" onclick = "SetModel()"/></td>
+					<td><input type="radio" name="dice3" value="3" onclick = "SetModel()"/></td>
+				</tr>
+			 </table>
+		</td>
+		<td class="text-center">
+			<table class="table table-bordered">
+				<tr >
+					<td colspan="3">
+						<strong id="TotalChicken"> 0 </strong>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> Dice1 </strong><img width="20px" class="Selectdice1" src="/Images/BauCua/sb_random.png"/></td>
+					<td><strong> Dice2 </strong><img width="20px" class="Selectdice2" src="/Images/BauCua/sb_random.png"/></td>
+					<td><strong> Dice3 </strong><img width="20px" class="Selectdice3" src="/Images/BauCua/sb_random.png"/></td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="dice1" value="4" onclick = "SetModel()"/></td>
+					<td><input type="radio" name="dice2" value="4" onclick = "SetModel()"/></td>
+					<td><input type="radio" name="dice3" value="4" onclick = "SetModel()"/></td>
+				</tr>
+			 </table>
+		</td>
+		<td class="text-center">
+			
+			 <table class="table table-bordered">
+				<tr >
+					<td colspan="3">
+						<strong id="TotalShrimp"> 0 </strong>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> Dice1 </strong><img width="20px" class="Selectdice1" src="/Images/BauCua/sb_random.png"/></td>
+					<td><strong> Dice2 </strong><img width="20px" class="Selectdice2" src="/Images/BauCua/sb_random.png"/></td>
+					<td><strong> Dice3 </strong><img width="20px" class="Selectdice3" src="/Images/BauCua/sb_random.png"/></td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="dice1" value="5" onclick = "SetModel()"/></td>
+					<td><input type="radio" name="dice2" value="5" onclick = "SetModel()"/></td>
+					<td><input type="radio" name="dice3" value="5" onclick = "SetModel()"/></td>
+				</tr>
+			 </table>
+		</td>
+		<td class="text-center">
+			 <table class="table table-bordered">
+				<tr >
+					<td colspan="3">
+						<strong id="TotalDeer"> 0 </strong>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> Dice1 </strong><img width="20px" class="Selectdice1" src="/Images/BauCua/sb_random.png"/></td>
+					<td><strong> Dice2 </strong><img width="20px" class="Selectdice2" src="/Images/BauCua/sb_random.png"/></td>
+					<td><strong> Dice3 </strong><img width="20px" class="Selectdice3" src="/Images/BauCua/sb_random.png"/></td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="dice1" value="6" onclick = "SetModel()"/></td>
+					<td><input type="radio" name="dice2" value="6" onclick = "SetModel()"/></td>
+					<td><input type="radio" name="dice3" value="6" onclick = "SetModel()"/></td>
+				</tr>
+			 </table>
+		</td>
+		<td class="text-center">
+			 <table class="table table-bordered">
+				<tr >
+					<td colspan="3">
+						<strong> 0 </strong>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> Dice1 </strong><img width="20px" class="Selectdice1" src="/Images/BauCua/sb_random.png"/></td>
+					<td><strong> Dice2 </strong><img width="20px" class="Selectdice2" src="/Images/BauCua/sb_random.png"/></td>
+					<td><strong> Dice3 </strong><img width="20px" class="Selectdice3" src="/Images/BauCua/sb_random.png"/></td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="dice1" checked="true" value="0" onclick = "SetModel()"/></td>
+					<td><input type="radio" name="dice2" checked="true" value="0" onclick = "SetModel()"/></td>
+					<td><input type="radio" name="dice3" checked="true" value="0" onclick = "SetModel()"/></td>
+				</tr>
+			 </table>
+		</td>
+	</tr>
+	 <tr>
+        <td class="text-center">
+			  <table class="table table-bordered">
+					<tbody id="HtmlGourd"></tbody>
+			  </table>
+		</td>
+        <td class="text-center">
+			<table class="table table-bordered">
+					<tbody id="HtmlCrab"></tbody>
+			  </table>
+		</td>
+        <td class="text-center">
+			<table class="table table-bordered">
+					<tbody id="HtmlFish"></tbody>
+			  </table>
+		</td>
+        <td class="text-center">
+			<table class="table table-bordered">
+					<tbody id="HtmlChicken"></tbody>
+			</table>
+		</td>
+        <td class="text-center">
+			<table class="table table-bordered">
+					<tbody id="HtmlShrimp"></tbody>
+			</table>
+		</td>
+        <td class="text-center">
+			<table class="table table-bordered">
+					<tbody id="HtmlDeer"></tbody>
+			</table>
+		</td>
+      </tr>
+     
+  </table>
+
+</div>
+<script>
+	let images_dice = [
+		"/Images/BauCua/sb_random.png",
+		"/Images/BauCua/sb_gourd.png",
+		"/Images/BauCua/sb_crab.png",
+		"/Images/BauCua/sb_fish.png",
+		"/Images/BauCua/sb_rooster.png",
+		"/Images/BauCua/sb_lobster.png",
+		"/Images/BauCua/sb_deer.png",
+	];
+	function GetSession(){
+		$.ajax({
+			type:"POST",
+			url: "/BauCua/InitSession",
+			dataType:"json",
+			success: function(result){
+				//console.log(result);
+				$("#Elapsed").html(result.Elapsed);
+				$("#SessionID").html(result.SessionID);
+				$("#Phrase").html(result.Phrase);
+                if (result.Phrase == "Waiting") {
+                    $(".Selectdice1").attr('src', images_dice[0]);
+                    $(".Selectdice2").attr('src', images_dice[0]);
+                    $(".Selectdice3").attr('src', images_dice[0]);
+                    $("#myform input[name=dice1][value=0]").prop('checked', true);
+                    $("#myform input[name=dice2][value=0]").prop('checked', true);
+                    $("#myform input[name=dice3][value=0]").prop('checked', true);
+				}
+				
+				$("#KQdice1").attr('src',images_dice[result.Model[0]]);
+				$("#KQdice2").attr('src',images_dice[result.Model[1]]);
+				$("#KQdice3").attr('src',images_dice[result.Model[2]]);
+				
+				if(result.Model[0]!="0" && result.Model[1]!="0" && result.Model[2]!="0"){
+					$(".Selectdice1").attr('src',images_dice[result.Model[0]]);
+					$(".Selectdice2").attr('src',images_dice[result.Model[1]]);
+					$(".Selectdice3").attr('src',images_dice[result.Model[2]]);
+				}
+				var totalGourd = 0;
+				var totalCrab = 0;
+				var totalFish = 0;
+				var totalChicken = 0;
+				var totalShrimp = 0;
+				var totalDeer = 0;
+				
+				var HtmlGourd = "";
+				var HtmlCrab = "";
+				var HtmlFish = "";
+				var HtmlChicken = "";
+				var HtmlShrimp = "";
+				var HtmlDeer = "";
+				
+				for(let i in result.Gourd){
+					totalGourd+= result.Gourd[i].BetValue;
+					HtmlGourd+= "<tr><td>"+result.Gourd[i].Nickname+"-"+result.Gourd[i].BetValue+"</td></tr>";
+				}
+				for(let i in result.Crab){
+					totalCrab+= result.Crab[i].BetValue;
+					HtmlCrab+= "<tr><td>"+result.Crab[i].Nickname+"-"+result.Crab[i].BetValue+"</td></tr>";
+				}
+				for(let i in result.Fish){
+					totalFish+= result.Fish[i].BetValue;
+					HtmlFish+= "<tr><td>"+result.Fish[i].Nickname+"-"+result.Fish[i].BetValue+"</td></tr>";
+				}
+				for(let i in result.Chicken){
+					totalChicken+= result.Chicken[i].BetValue;
+					HtmlChicken+= "<tr><td>"+result.Chicken[i].Nickname+"-"+result.Chicken[i].BetValue+"</td></tr>";
+				}
+				for(let i in result.Shrimp){
+					totalShrimp+= result.Shrimp[i].BetValue;
+					HtmlShrimp+= "<tr><td>"+result.Shrimp[i].Nickname+"-"+result.Shrimp[i].BetValue+"</td></tr>";
+				}
+				for(let i in result.Deer){
+					totalDeer+= result.Deer[i].BetValue;
+					HtmlDeer+= "<tr><td>"+result.Deer[i].Nickname+"-"+result.Deer[i].BetValue+"</td></tr>";
+				}
+				$("#TotalDeer").html(totalDeer);
+				$("#TotalShrimp").html(totalShrimp);
+				$("#TotalChicken").html(totalChicken);
+				$("#TotalFish").html(totalFish);
+				$("#TotalCrab").html(totalCrab);
+				$("#TotalGourd").html(totalGourd);
+				
+				$("#HtmlDeer").html(HtmlDeer);
+				$("#HtmlShrimp").html(HtmlShrimp);
+				$("#HtmlChicken").html(HtmlChicken);
+				$("#HtmlFish").html(HtmlFish);
+				$("#HtmlCrab").html(HtmlCrab);
+				$("#HtmlGourd").html(HtmlGourd);
+				
+			}
+		});
+	}
+	function SetModel(val){
+	
+	let data = [
+		$("#myform input[name='dice1']:checked").val(),
+		$("#myform input[name='dice2']:checked").val(),
+		$("#myform input[name='dice3']:checked").val(),
+	];
+	$(".Selectdice1").attr('src',images_dice[data[0]]);
+	$(".Selectdice2").attr('src',images_dice[data[1]]);
+	$(".Selectdice3").attr('src',images_dice[data[2]]);
+	 
+	if(data[0]!="0" && data[1]!="0" && data[2]!="0" || data[0]=="0" && data[1]=="0" && data[2]=="0"){
+		$.ajax({
+			type:"POST",
+			url: "/BauCua/SetModel",
+			dataType:"json",
+			data:{model:data},
+			success: function(result){
+				//console.log(result);
+				try{
+					if(result.IsOke){
+						 
+					}else{
+						 $("#myform input[name=resulted][value=-1]").prop('checked', true);
+					}
+				}catch(e){
+					location.reload();
+				}
+			}
+		});
+	}
+	
+	}
+	$(document).ready(function(){
+		GetSession(true);
+		setInterval(GetSession,999);
+	})
+</script>

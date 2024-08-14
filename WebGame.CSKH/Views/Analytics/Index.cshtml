@@ -1,0 +1,106 @@
+﻿@using MsWebGame.CSKH.Utils
+@using Telerik.Web.Mvc.UI
+@model List<object[]>
+@{
+    ViewBag.Title = "Chỉnh cầu";
+}
+<!-- Main content -->
+<section class="content" style="width:80%;margin:0 auto">
+    <div class="box">
+        <div id="visualization"></div>
+        <div id="gamebai"></div>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/redmond/jquery-ui.css" />
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+       
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+       
+        <script type="text/javascript">
+            //load package
+            google.load('visualization', '1', { packages: ['corechart'] });
+            var options = {
+                title: 'CCU TRONG NGÀY HIỆN TẠI',
+                chartArea: { width: '80%' },
+                width: '100%',
+                height: 400,
+                //hAxis: {viewWindow:{min:0, max:30}},
+                lineWidth: 1,
+                color: 'red',
+            };
+
+        </script>
+		
+        <div style="margin-top:30px;" id="game" class="game"></div>
+
+        <script type="text/javascript">
+            function drawVisualization() {
+                var ccu =  @Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model))
+				// @ViewBag.CCU     
+                $(".infoLast .total").html(ccu[ccu.length - 1][4]);
+                $(".infoLast .android").html(ccu[ccu.length - 1][2]);
+                $(".infoLast .ios").html(ccu[ccu.length - 1][3]);
+                $(".infoLast .web").html(ccu[ccu.length - 1][1]);
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Date');
+				 data.addColumn('number', 'web');
+                data.addColumn('number', 'android');
+                data.addColumn('number', 'iphone');
+               
+                data.addColumn('number', 'Tổng');
+                data.addRows(ccu);
+                var options = {
+                    'title': 'Thông kê CCU',
+                    curveType: 'function'
+                };
+                var chart = new google.visualization.LineChart(document.getElementById('visualization'));
+                chart.draw(data, options);
+                google.visualization.events.addListener(chart, 'onmouseover', function (e) {
+                    console.log(11111);
+                });
+            }
+            google.setOnLoadCallback(drawVisualization);
+
+
+
+        </script>
+    </div>
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Chỉ số</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table class="table table-bordered infoLast">
+                <tbody>
+                    <tr>
+                        <td>Tổng</td>
+                        <td class="total">0</td>
+						<td>Web</td>
+                        <td class="web">0</td>
+                        <td>Android</td>
+                        <td class="android">0</td>
+                        <td>IOS</td>
+                        <td class="ios">0</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input name="date_start" type="date" id="date_start"
+                               class="form-control pull-right datepicker" value="2021-08-19">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <BR>
+                    <button type="button" onclick="get_action()" class="btn btn-sm btn-primary  pull-right">
+                        Dữ liệu
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+</section>

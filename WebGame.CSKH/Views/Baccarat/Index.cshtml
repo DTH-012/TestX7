@@ -1,0 +1,164 @@
+﻿<div>
+    
+  <table class="table table-bordered">  
+	<tr>
+	<td class="text-center" style="vertical-align: middle;width:25%">
+		<strong id="SessionID"></strong>
+	</td>
+	<td class="text-center" style="vertical-align: middle;width:25%">
+		<strong id="Phrase"></strong>
+	</td>
+	
+	<td class="text-center" style="vertical-align: middle;width:25%">
+		<strong id="Elapsed"></strong>
+	</td>
+	<td class="text-center" style="vertical-align: middle;width:25%">
+		<strong id="Model"></strong>
+	</td>
+	</tr>
+  </table>
+  <table class="table table-bordered" id="myform">
+	<tr>
+		<td id="kq_1" class="text-center" style="vertical-align: middle;">
+			Player		
+		</td>
+		<td id="kq_2" class="text-center" style="vertical-align: middle;">
+			Tie 
+		</td>
+		<td id="kq_3" class="text-center" style="vertical-align: middle;">
+			Banker 
+		</td>
+		<td  id="kq_random"class="text-center" style="vertical-align: middle;">
+			Random
+		</td>
+	</tr>
+	<tr>
+		<td class="text-center">
+			<input type="radio" name="resulted" value="1" onclick = "SetModel()">
+		</td>
+		<td class="text-center">
+			 
+			<input type="radio" name="resulted" value="2" onclick = "SetModel()">
+		</td>
+		<td class="text-center">
+			 
+			<input type="radio" name="resulted" value="3" onclick = "SetModel()">
+		</td>
+		
+		<td class="text-center">
+			 
+			 <input type="radio" name="resulted" value="-1" onclick = "SetModel()" checked="true"> 
+		</td>
+	</tr>
+  </table>
+  
+   
+  
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center" width="14.2857142857%">Player</th>
+        <th class="text-center" width="14.2857142857%">Tie</th>
+        <th class="text-center" width="14.2857142857%">Banker</th>
+        
+      </tr>
+	   <tr>
+        <td class="text-center" id="TotalDragon">0</td>
+        <td class="text-center" id="TotalTie">0</td>
+        <td class="text-center" id="TotalTiger">0</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="text-center">
+			  <table class="table table-bordered">
+					<tbody id="HtmlDragon"></tbody>
+			  </table>
+		</td>
+        <td class="text-center">
+			<table class="table table-bordered">
+					<tbody id="HtmlTie"></tbody>
+			  </table>
+		</td>
+        <td class="text-center">
+			<table class="table table-bordered">
+					<tbody id="HtmlTiger"></tbody>
+			  </table>
+		</td>
+   
+      </tr>
+     
+    </tbody>
+  </table>
+</div>
+<script>
+	function GetSession(){
+		$.ajax({
+			type:"POST",
+			url: "/Baccarat/InitSession",
+			dataType:"json",
+			success: function(result){
+				console.log(result);
+				$("#Elapsed").html(result.Elapsed);
+				$("#SessionID").html(result.SessionID);
+				$("#Phrase").html(result.Phrase);
+				$("#Model").html($("#kq_"+(result.Model ==-1 ?"random":result.Model)).html());
+				var totalDragon = 0;
+				var totalTie = 0;
+				var totalTiger = 0;
+				 if(result.Model ==-1){
+					$("#myform input[name=resulted][value=-1]").prop('checked', true);
+				 }
+				
+				var HtmlDragon = "";
+				var HtmlTie = "";
+				var HtmlTiger = "";
+				
+				for(let i in result.Player){
+                    totalDragon += result.Player[i].BetValue;
+                    HtmlDragon += "<tr><td>" + result.Player[i].Nickname + "-" + result.Player[i].BetValue+"</td></tr>";
+				}
+				for(let i in result.Tie){
+                    totalTie = result.Tie[i].BetValue;
+                    HtmlTie += "<tr><td>" + result.Tie[i].Nickname + "-" + result.Tie[i].BetValue+"</td></tr>";
+				}
+				for(let i in result.Banker){
+                    totalTiger += result.Banker[i].BetValue;
+                    HtmlTiger += "<tr><td>" + result.Banker[i].Nickname + "-" + result.Banker[i].BetValue+"</td></tr>";
+				}
+	
+				$("#TotalDragon").html(totalDragon);
+				$("#TotalTie").html(totalTie);
+				$("#TotalTiger").html(totalTiger);
+				
+				$("#HtmlDragon").html(HtmlDragon);
+				$("#HtmlTie").html(HtmlTie);
+				$("#HtmlTiger").html(HtmlTiger);
+			}
+		});
+	}
+	function SetModel(val){
+	$.ajax({
+			type:"POST",
+			url: "/Baccarat/SetModel",
+			dataType:"json",
+			data:{model:val?val:$("#myform input[name='resulted']:checked").val()},
+			success: function(result){
+				console.log(result);
+				try{
+					if(result.IsOke){
+						 
+					}else{
+						 $("#myform input[name=resulted][value=-1]").prop('checked', true);
+					}
+				}catch(e){
+					location.reload();
+				}
+			}
+		});
+	}
+	$(document).ready(function(){
+		GetSession(true);
+		setInterval(GetSession,999);
+	})
+</script>

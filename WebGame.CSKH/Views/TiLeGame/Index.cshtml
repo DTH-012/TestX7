@@ -1,0 +1,307 @@
+﻿@using MsWebGame.CSKH.Utils
+@using Telerik.Web.Mvc.UI
+@using MsWebGame.CSKH.Models.TiLeGame
+
+@{
+    ViewBag.Title = "Tỉ Lệ Game";
+}
+<style>
+    .p {
+        font-size: 24px;
+    }
+    .right {
+        float: right;
+    }
+</style>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                TÀI XỈU:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_game" value="" /> <button onclick="SetTaiXiu()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTile"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Tỷ Lệ Ra Cửa Ít Tiền Cược Càng CAO
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                TÀI XỈU MD5:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_gameMD5" value="" /> <button onclick="SetTaiXiuMD5()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileMD5"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Tỷ Lệ Ra Cửa Ít Tiền Cược Càng CAO
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                TÀI XỈU SIÊU TỐC:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_gameSIEUTOC" value="" /> <button onclick="SetTaiXiuSIEUTOC()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileSIEUTOC"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Tỷ Lệ Ra Cửa Ít Tiền Cược Càng CAO
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                BẦU CUA:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_gameBauCua" value="" /> <button onclick="SetBauCua()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileBauCua"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Tổng Tiền Thắng Của Các Cửa Trong 1 Phiên Nhà Cái Thắng Càng CAO
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                BẦU CUA JACKPOT:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_gameBauCuaJACKPOT" value="" /> <button onclick="SetBauCuaJACKPOT()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileBauCuaJACKPOT"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Tỷ Lệ Nổ Hũ Càng Thấp
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                XỐC ĐĨA:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_gameXocDia" value="" /> <button onclick="SetXocDia()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileXocDia"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Tổng Tiền Thắng Của Các Cửa Trong 1 Phiên Nhà Cái Thắng Càng CAO
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                XỐC ĐĨA JACKPOT:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_gameXocDiaJACKPOT" value="" /> <button onclick="SetXocDiaJACKPOT()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileXocDiaJACKPOT"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Tỷ Lệ Nổ Hũ Càng Thấp
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                RỒNG HỔ:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_RongHo" value="" /> <button onclick="SetRongHo()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileRongHo"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Tỷ Lệ Nhà Cái Thắng Càng Cao
+            </th>
+        </tr>
+        <tr>
+            <th class="thead-dark" width="10.2857142857%" style="font-size: 16px">
+                BACCARAT:
+                <div class="right">
+                    <input type="text" name="tile" id="tile_Baccarat" value="" /> <button onclick="SetBaccarat()">Lưu</button>  Tỉ Lệ Hiện Tại :[<strong id="dataTileBaccarat"></strong>]   <br />
+                </div>
+            </th>
+            <th class="thead-dark" width="18.2857142857%" style="font-size: 16px">
+                Số Càng Thấp => Tỷ Lệ Nhà Cái Thắng Càng Cao
+            </th>
+        </tr>
+    </thead>
+</table>
+<script>
+    function SetTaiXiu() {
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/TiLeGame/SetTaiXiu",
+                    dataType: "json",
+                    data: { "Tile": $("#tile_game").val() },
+                    success: function (result) {
+
+                    }
+                });
+    }
+    function SetTaiXiuMD5() {
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/TiLeGame/SetTaiXiuMD5",
+                    dataType: "json",
+                    data: { "Tile": $("#tile_gameMD5").val() },
+                    success: function (result) {
+
+                    }
+                });
+    }
+    function SetTaiXiuSIEUTOC() {
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/TiLeGame/SetTaiXiuSIEUTOC",
+                    dataType: "json",
+                    data: { "Tile": $("#tile_gameSIEUTOC").val() },
+                    success: function (result) {
+
+                    }
+                });
+    }
+    function SetBauCua() {
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/TiLeGame/SetBauCua",
+                    dataType: "json",
+                    data: { "Tile": $("#tile_gameBauCua").val() },
+                    success: function (result) {
+
+                    }
+                });
+    }
+    function SetBauCuaJACKPOT() {
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/TiLeGame/SetBauCuaJACKPOT",
+                    dataType: "json",
+                    data: { "Tile": $("#tile_gameBauCuaJACKPOT").val() },
+                    success: function (result) {
+
+                    }
+                });
+        }
+    function SetXocDia() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/TiLeGame/SetXocDia",
+                dataType: "json",
+                data: { "Tile": $("#tile_gameXocDia").val() },
+                success: function (result) {
+
+                }
+            });
+    }
+    function SetXocDiaJACKPOT() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/TiLeGame/SetXocDiaJACKPOT",
+                dataType: "json",
+                data: { "Tile": $("#tile_gameXocDiaJACKPOT").val() },
+                success: function (result) {
+
+                }
+            });
+    }
+    function SetRongHo() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/TiLeGame/SetRongHo",
+                dataType: "json",
+                data: { "Tile": $("#tile_RongHo").val() },
+                success: function (result) {
+
+                }
+            });
+    }
+    function SetBaccarat() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/TiLeGame/SetBaccarat",
+                dataType: "json",
+                data: { "Tile": $("#tile_Baccarat").val() },
+                success: function (result) {
+
+                }
+            });
+    }
+function GetSession(init) {
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGame/GetTaiXiu",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTile").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGame/GetTaiXiuMD5",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileMD5").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGame/GetTaiXiuSIEUTOC",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileSIEUTOC").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGame/GetBauCua",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileBauCua").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGame/GetBauCuaJACKPOT",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileBauCuaJACKPOT").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGame/GetXocDia",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileXocDia").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGame/GetXocDiaJACKPOT",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileXocDiaJACKPOT").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGame/GetRongHo",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileRongHo").html(result.rateBet);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/TiLeGame/GetBaccarat",
+            dataType: "json",
+            success: function (result) {
+                $("#dataTileBaccarat").html(result.rateBet);
+            }
+        });
+
+}
+$(document).ready(function () {
+        GetSession(true);
+        setInterval(GetSession, 999);
+})
+</script>
